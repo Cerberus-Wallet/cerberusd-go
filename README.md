@@ -1,18 +1,18 @@
-# trezord-go
+# cerberusd-go
 
-![Build status](https://github.com/trezor/trezord-go/actions/workflows/check-go-validation.yml/badge.svg) ![Installer build status](https://github.com/trezor/trezord-go/actions/workflows/build-unsigned-installers.yml/badge.svg) [![Go Report Card](https://goreportcard.com/badge/trezor/trezord-go)](https://goreportcard.com/report/trezor/trezord-go)
+![Build status](https://github.com/Cerberus-Wallet/cerberusd-go/actions/workflows/check-go-validation.yml/badge.svg) ![Installer build status](https://github.com/Cerberus-Wallet/cerberusd-go/actions/workflows/build-unsigned-installers.yml/badge.svg) [![Go Report Card](https://goreportcard.com/badge/Cerberus-Wallet/cerberusd-go)](https://goreportcard.com/report/Cerberus-Wallet/cerberusd-go)
 
-Trezor Communication Daemon aka Trezor Bridge.
+Cerberus Communication Daemon aka Cerberus Bridge.
 
 **Only compatible with Chrome (version 53 or later) and Firefox (version 55 or later).**
 
 We officially don't support Windows 7 and older; it could run, but we don't guarantee it.
 
-## What does trezord do and why it is needed?
+## What does cerberusd do and why it is needed?
 
-Trezord is a tiny http server, that allows webpages (like Trezor Suite in web mode) to communicate with Trezor directly.
+Cerberusd is a tiny http server, that allows webpages (like Cerberus Suite in web mode) to communicate with Cerberus directly.
 
-Our new devices now support WebUSB, which should eliminate the need for Trezor Bridge; however, there are some reasons, why bridge is still needed.
+Our new devices now support WebUSB, which should eliminate the need for Cerberus Bridge; however, there are some reasons, why bridge is still needed.
 
 1. Firefox does not allow WebUSB ([see discussion here](https://github.com/mozilla/standards-positions/issues/100)).
 2. Devices with old firmware (2018 and older) support only HID and not WebUSB.
@@ -20,16 +20,16 @@ Our new devices now support WebUSB, which should eliminate the need for Trezor B
 
 ## Install and run from source
 
-trezord-go requires go >= 1.18.
+cerberusd-go requires go >= 1.18.
 
 ```
-git clone --recursive https://github.com/trezor/trezord-go.git
-cd trezord-go
+git clone --recursive https://github.com/Cerberus-Wallet/cerberusd-go.git
+cd cerberusd-go
 go build .
-./trezord-go -h
+./cerberusd-go -h
 ```
 
-On Linux don't forget to install the [udev rules](https://github.com/trezor/trezor-common/blob/master/udev/51-trezor.rules) if you are running from source and not using pre-built packages.
+On Linux don't forget to install the [udev rules](https://github.com/Cerberus-Wallet/cerberus-common/blob/master/udev/51-cerberus.rules) if you are running from source and not using pre-built packages.
 
 #### Debug mode
 
@@ -65,19 +65,19 @@ All those files are ignored by `.gitignore` so they are not accidentally put int
 
 ## Emulator support
 
-Trezord supports emulators for all Trezor versions. However, you need to enable it manually; it is disabled by default. After enabling, services that work with emulator can work with all services that support trezord.
+Cerberusd supports emulators for all Cerberus versions. However, you need to enable it manually; it is disabled by default. After enabling, services that work with emulator can work with all services that support cerberusd.
 
-To enable emulator, run trezord with a parameter `-e` followed by port, for every emulator with an enabled port:
+To enable emulator, run cerberusd with a parameter `-e` followed by port, for every emulator with an enabled port:
 
-`./trezord-go -e 21324`
+`./cerberusd-go -e 21324`
 
 You can disable all USB in order to run on some virtuaized environments, for example on CI:
 
-`./trezord-go -e 21324 -u=false`
+`./cerberusd-go -e 21324 -u=false`
 
 ## API documentation
 
-`trezord-go` starts a HTTP server on `http://localhost:21325`. AJAX calls are only enabled from trezor.io subdomains.
+`cerberusd-go` starts a HTTP server on `http://localhost:21325`. AJAX calls are only enabled from cerberus.uraanai.com subdomains.
 
 Server supports following API calls:
 
@@ -88,25 +88,25 @@ Server supports following API calls:
 | `/listen` <br> POST | request body: previous, as JSON | like `enumerate` | Listen to changes and returns either on change or after 30 second timeout. Compares change from `previous` that is sent as a parameter. "Change" is both connecting/disconnecting and session change. |
 | `/acquire/PATH/PREVIOUS` <br> POST | `PATH`: path of device<br>`PREVIOUS`: previous session (or string "null") | {`session`:&nbsp;string} | Acquires the device at `PATH`. By "acquiring" the device, you are claiming the device for yourself.<br>Before acquiring, checks that the current session is `PREVIOUS`.<br>If two applications call `acquire` on a newly connected device at the same time, only one of them succeed. |
 | `/release/SESSION`<br>POST | `SESSION`: session to release | {} | Releases the device with the given session.<br>By "releasing" the device, you claim that you don't want to use the device anymore. |
-| `/call/SESSION`<br>POST | `SESSION`: session to call<br><br>request body: hexadecimal string | hexadecimal string | Both input and output are hexadecimal, encoded in following way:<br>first 2 bytes (4 characters in the hexadecimal) is the message type<br>next 4 bytes (8 in hex) is length of the data<br>the rest is the actual encoded protobuf data.<br>Protobuf messages are defined in [this protobuf file](https://github.com/trezor/trezor-common/blob/master/protob/messages.proto) and the app, calling trezord, should encode/decode it itself. |
-| `/post/SESSION`<br>POST | `SESSION`: session to call<br><br>request body: hexadecimal string | 0 | Similar to `call`, just doesn't read response back. Also forces the message to be sent even if another call is in progress. Usable mainly for debug link and workflow cancelling on Trezor.  |
+| `/call/SESSION`<br>POST | `SESSION`: session to call<br><br>request body: hexadecimal string | hexadecimal string | Both input and output are hexadecimal, encoded in following way:<br>first 2 bytes (4 characters in the hexadecimal) is the message type<br>next 4 bytes (8 in hex) is length of the data<br>the rest is the actual encoded protobuf data.<br>Protobuf messages are defined in [this protobuf file](https://github.com/Cerberus-Wallet/cerberus-common/blob/master/protob/messages.proto) and the app, calling cerberusd, should encode/decode it itself. |
+| `/post/SESSION`<br>POST | `SESSION`: session to call<br><br>request body: hexadecimal string | 0 | Similar to `call`, just doesn't read response back. Also forces the message to be sent even if another call is in progress. Usable mainly for debug link and workflow cancelling on Cerberus.  |
 | `/read/SESSION`<br>POST | `SESSION`: session to call | 0 | Similar to `call`, just doesn't post, only reads. Usable mainly for debug link. |
 
 ## Debug link support
 
-Trezord has support for debug link.
+Cerberusd has support for debug link.
 
 To support an emulator with debug link, run
 
-`./trezord-go -ed 21324:21325 -u=false`
+`./cerberusd-go -ed 21324:21325 -u=false`
 
 this will detect emulator debug link on port 21325, with regular device on 21324.
 
-To support WebUSB devices with debug link, no option is needed, just run trezord-go.
+To support WebUSB devices with debug link, no option is needed, just run cerberusd-go.
 
 In the `enumerate` and `listen` results, there are now two new fields: `debug` and `debugSession`. `debug` signals that device can receive debug link messages.
 
-Session management is separate for debug link and normal interface, so you can have two applications - one controlling trezor and one "normal".
+Session management is separate for debug link and normal interface, so you can have two applications - one controlling cerberus and one "normal".
 
 There are new calls:
 

@@ -1,8 +1,8 @@
 PLATFORM  = linux
 VOL_MOUNT = -v $(shell pwd):/release
 
-IMAGETAG_PACKAGE  = trezord-go-package-env-$(PLATFORM)
-IMAGETAG_BUILD    = trezord-go-build-env-$(PLATFORM)
+IMAGETAG_PACKAGE  = cerberusd-go-package-env-$(PLATFORM)
+IMAGETAG_BUILD    = cerberusd-go-build-env-$(PLATFORM)
 
 IMPORT_PATH =  $(shell realpath ../..)
 
@@ -15,9 +15,9 @@ clean:
 .binary: .docker-image-build
 	$(info Building with musl crosbuild ...)
 	mkdir -p build
-	docker run --rm -v $(IMPORT_PATH):/trezord -w /trezord $(IMAGETAG_BUILD)-arm64 /trezord/release/linux/build.sh
-	docker run --rm -v $(IMPORT_PATH):/trezord -w /trezord $(IMAGETAG_BUILD)-386 /trezord/release/linux/build.sh
-	docker run --rm -v $(IMPORT_PATH):/trezord -w /trezord $(IMAGETAG_BUILD)-amd64 /trezord/release/linux/build.sh
+	docker run --rm -v $(IMPORT_PATH):/cerberusd -w /cerberusd $(IMAGETAG_BUILD)-arm64 /cerberusd/release/linux/build.sh
+	docker run --rm -v $(IMPORT_PATH):/cerberusd -w /cerberusd $(IMAGETAG_BUILD)-386 /cerberusd/release/linux/build.sh
+	docker run --rm -v $(IMPORT_PATH):/cerberusd -w /cerberusd $(IMAGETAG_BUILD)-amd64 /cerberusd/release/linux/build.sh
 	cp ../../VERSION build
 
 .package: .binary .docker-image-package

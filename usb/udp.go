@@ -10,8 +10,8 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/trezor/trezord-go/core"
-	"github.com/trezor/trezord-go/memorywriter"
+	"github.com/Cerberus-Wallet/cerberusd-go/core"
+	"github.com/Cerberus-Wallet/cerberusd-go/memorywriter"
 )
 
 var emulatorPing = []byte("PINGPING")
@@ -20,7 +20,7 @@ var emulatorPong = []byte("PONGPONG")
 const (
 	emulatorPrefix      = "emulator"
 	emulatorAddress     = "127.0.0.1"
-	emulatorPingTimeout = 1000 * time.Millisecond // it seems neither 500 nor 700 is enough for trezor-link
+	emulatorPingTimeout = 1000 * time.Millisecond // it seems neither 500 nor 700 is enough for cerberus-link
 )
 
 type udpLowlevel struct {

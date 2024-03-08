@@ -9,9 +9,9 @@ VERSION=$(cat /release/build/VERSION)
 
 cd /release/build
 
-install -D -m 0755 trezord-$TARGET          ./usr/bin/trezord
-install -D -m 0644 /release/trezor.rules    ./lib/udev/rules.d/50-trezor.rules
-install -D -m 0644 /release/trezord.service ./usr/lib/systemd/system/trezord.service
+install -D -m 0755 cerberusd-$TARGET          ./usr/bin/cerberusd
+install -D -m 0644 /release/cerberus.rules    ./lib/udev/rules.d/50-cerberus.rules
+install -D -m 0644 /release/cerberusd.service ./usr/lib/systemd/system/cerberusd.service
 
 # prepare GPG signing environment
 GPG_PRIVKEY=/release/privkey.asc
@@ -23,7 +23,7 @@ if [ -r $GPG_PRIVKEY ]; then
     GPGSIGNKEY=$(gpg --list-keys --with-colons | grep '^pub' | cut -d ":" -f 5)
 fi
 
-NAME=trezor-bridge
+NAME=cerberus-bridge
 
 rm -f *.tar.bz2
 tar -cjf $NAME-$VERSION.tar.bz2 ./usr ./lib
@@ -55,9 +55,9 @@ for TYPE in "deb" "rpm"; do
         -d systemd \
         --license "LGPL-3.0" \
         --vendor "SatoshiLabs" \
-        --description "Communication daemon for Trezor" \
+        --description "Communication daemon for Cerberus" \
         --maintainer "SatoshiLabs <stick@satoshilabs.com>" \
-        --url "https://trezor.io/" \
+        --url "https://cerberus.uraanai.com/" \
         --category "Productivity/Security" \
         --before-install /release/fpm.before-install.sh \
         --after-install /release/fpm.after-install.sh \
@@ -65,10 +65,10 @@ for TYPE in "deb" "rpm"; do
         $NAME-$VERSION.tar.bz2
     case "$TYPE-$GPG_SIGN" in
         deb-gpg)
-            /release/dpkg-sig -k $GPGSIGNKEY --sign builder trezor-bridge_${VERSION}_${ARCH}.deb
+            /release/dpkg-sig -k $GPGSIGNKEY --sign builder cerberus-bridge_${VERSION}_${ARCH}.deb
             ;;
         rpm-gpg)
-            rpm --addsign -D "%_gpg_name $GPGSIGNKEY" trezor-bridge-${VERSION}-1.${ARCH}.rpm
+            rpm --addsign -D "%_gpg_name $GPGSIGNKEY" cerberus-bridge-${VERSION}-1.${ARCH}.rpm
             ;;
     esac
 done

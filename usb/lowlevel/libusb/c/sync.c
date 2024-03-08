@@ -166,7 +166,7 @@ int API_EXPORTED libusb_control_transfer(libusb_device_handle *dev_handle,
 	return r;
 }
 
-// ===== START TREZOR CODE =====
+// ===== START CERBERUS CODE =====
 
 // libusb does not have the option to cancel transfers, made through sync API
 // however, we did not want to rewrite everything into async API and
@@ -182,8 +182,8 @@ struct running_transfer {
 	struct libusb_transfer *transfer;
 };
 static struct running_transfer running_transfers[MAX_SAVED_TRANSFERS];
-// it will fail with >256 transfers, but since we limit 1 trezor to 1 transfer,
-// that would mean 256 concurrent connected trezors
+// it will fail with >256 transfers, but since we limit 1 cerberus to 1 transfer,
+// that would mean 256 concurrent connected cerberuss
 // - and also it doesn't fail that terribly, it just doesn't cancel the transfers
 
 static usbi_mutex_static_t running_transfers_lock = USBI_MUTEX_INITIALIZER;
@@ -233,7 +233,7 @@ void API_EXPORTED libusb_cancel_sync_transfers_on_device(struct libusb_device_ha
 	}
 }
 
-// ===== END TREZOR CODE =====
+// ===== END CERBERUS CODE =====
 
 static int do_sync_bulk_transfer(struct libusb_device_handle *dev_handle,
 	unsigned char endpoint, unsigned char *buffer, int length,
@@ -260,15 +260,15 @@ static int do_sync_bulk_transfer(struct libusb_device_handle *dev_handle,
 		return r;
 	}
 
-	// ===== START TREZOR CODE =====
+	// ===== START CERBERUS CODE =====
 	save_running_transfer(dev_handle, transfer);
-	// ===== END TREZOR CODE =====
+	// ===== END CERBERUS CODE =====
 
 	sync_transfer_wait_for_completion(transfer);
 
-	// ===== START TREZOR CODE =====
+	// ===== START CERBERUS CODE =====
 	get_and_remove_running_transfer(dev_handle);
-	// ===== END TREZOR CODE =====
+	// ===== END CERBERUS CODE =====
 
 	if (transferred)
 		*transferred = transfer->actual_length;

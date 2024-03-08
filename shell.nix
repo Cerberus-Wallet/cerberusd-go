@@ -1,7 +1,7 @@
 with import <nixpkgs> {};
 
 stdenv.mkDerivation {
-  name = "trezord-go-env";
+  name = "cerberusd-go-env";
   buildInputs = [
     fpm
     gcc

@@ -1,4 +1,4 @@
-module github.com/trezor/trezord-go
+module github.com/Cerberus-Wallet/cerberusd-go
 
 go 1.12
 

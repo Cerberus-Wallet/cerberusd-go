@@ -6,10 +6,10 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/trezor/trezord-go/core"
-	"github.com/trezor/trezord-go/memorywriter"
-	"github.com/trezor/trezord-go/server/api"
-	"github.com/trezor/trezord-go/server/status"
+	"github.com/Cerberus-Wallet/cerberusd-go/core"
+	"github.com/Cerberus-Wallet/cerberusd-go/memorywriter"
+	"github.com/Cerberus-Wallet/cerberusd-go/server/api"
+	"github.com/Cerberus-Wallet/cerberusd-go/server/status"
 
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"

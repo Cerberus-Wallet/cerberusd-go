@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/trezor/trezord-go/core"
-	"github.com/trezor/trezord-go/memorywriter"
+	"github.com/Cerberus-Wallet/cerberusd-go/core"
+	"github.com/Cerberus-Wallet/cerberusd-go/memorywriter"
 
 	"github.com/gorilla/csrf"
 	"github.com/gorilla/mux"

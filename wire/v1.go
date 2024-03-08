@@ -5,7 +5,7 @@ import (
 	"errors"
 	"io"
 
-	"github.com/trezor/trezord-go/memorywriter"
+	"github.com/Cerberus-Wallet/cerberusd-go/memorywriter"
 )
 
 const (

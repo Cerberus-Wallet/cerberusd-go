@@ -1,13 +1,13 @@
 //go:build linux || freebsd || openbsd
 // +build linux freebsd openbsd
 
-// shim for linux and freebsd so that trezord.go builds
+// shim for linux and freebsd so that cerberusd.go builds
 
 package usb
 
 import (
-	"github.com/trezor/trezord-go/core"
-	"github.com/trezor/trezord-go/memorywriter"
+	"github.com/Cerberus-Wallet/cerberusd-go/core"
+	"github.com/Cerberus-Wallet/cerberusd-go/memorywriter"
 )
 
 const HIDUse = false

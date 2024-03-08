@@ -1,4 +1,4 @@
-getent group trezord >/dev/null || groupadd -r trezord
+getent group cerberusd >/dev/null || groupadd -r cerberusd
 getent group plugdev >/dev/null || groupadd -r plugdev
-getent passwd trezord >/dev/null || useradd -r -g trezord -d /var -s /bin/false -c "Trezor Bridge" trezord
-usermod -a -G plugdev trezord
+getent passwd cerberusd >/dev/null || useradd -r -g cerberusd -d /var -s /bin/false -c "Cerberus Bridge" cerberusd
+usermod -a -G plugdev cerberusd

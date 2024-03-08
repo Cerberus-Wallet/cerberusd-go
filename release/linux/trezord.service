@@ -1,11 +1,11 @@
 [Unit]
-Description=Trezor Bridge
+Description=Cerberus Bridge
 After=network.target
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/trezord
-User=trezord
+ExecStart=/usr/bin/cerberusd
+User=cerberusd
 
 [Install]
 WantedBy=multi-user.target

@@ -12,10 +12,10 @@ import (
 	"sync"
 	"sync/atomic"
 
-	lowlevel "github.com/trezor/trezord-go/usb/lowlevel/hidapi"
+	lowlevel "github.com/Cerberus-Wallet/cerberusd-go/usb/lowlevel/hidapi"
 
-	"github.com/trezor/trezord-go/core"
-	"github.com/trezor/trezord-go/memorywriter"
+	"github.com/Cerberus-Wallet/cerberusd-go/core"
+	"github.com/Cerberus-Wallet/cerberusd-go/memorywriter"
 )
 
 const (
@@ -98,9 +98,9 @@ func (b *HIDAPI) Connect(path string, debug bool, reset bool) (core.USBDevice, e
 func (b *HIDAPI) match(d *lowlevel.HidDeviceInfo) bool {
 	vid := d.VendorID
 	pid := d.ProductID
-	// note that "trezor1" is just the old hidapi one; t2 has the new vid/pid
-	trezor1 := vid == core.VendorT1 && (pid == core.ProductT1Firmware)
-	if trezor1 {
+	// note that "cerberus1" is just the old hidapi one; t2 has the new vid/pid
+	cerberus1 := vid == core.VendorT1 && (pid == core.ProductT1Firmware)
+	if cerberus1 {
 		var dCopy lowlevel.HidDeviceInfo = *d
 		// sanitize potentially sensitive info
 		dCopy.Serial = ""
@@ -152,7 +152,7 @@ func (d *HID) Close(disconnected bool) error {
 
 var unknownErrorMessage = "hidapi: unknown failure"
 
-// This will write a useless buffer to trezor
+// This will write a useless buffer to cerberus
 // to test whether it is an older HID version on reportid 63
 // or a newer one that is on id 0.
 // The older one does not need prepending, the newer one does

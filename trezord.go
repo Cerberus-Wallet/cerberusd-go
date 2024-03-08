@@ -11,10 +11,10 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/trezor/trezord-go/core"
-	"github.com/trezor/trezord-go/memorywriter"
-	"github.com/trezor/trezord-go/server"
-	"github.com/trezor/trezord-go/usb"
+	"github.com/Cerberus-Wallet/cerberusd-go/core"
+	"github.com/Cerberus-Wallet/cerberusd-go/memorywriter"
+	"github.com/Cerberus-Wallet/cerberusd-go/server"
+	"github.com/Cerberus-Wallet/cerberusd-go/usb"
 	"gopkg.in/natefinch/lumberjack.v2"
 )
 
@@ -132,18 +132,18 @@ func main() {
 	flag.Var(
 		&ports,
 		"e",
-		"Use UDP port for emulator. Can be repeated for more ports. Example: trezord-go -e 21324 -e 21326",
+		"Use UDP port for emulator. Can be repeated for more ports. Example: cerberusd-go -e 21324 -e 21326",
 	)
 	flag.Var(
 		&touples,
 		"ed",
-		"Use UDP port for emulator with debug link. Can be repeated for more ports. Example: trezord-go -ed 21324:21326",
+		"Use UDP port for emulator with debug link. Can be repeated for more ports. Example: cerberusd-go -ed 21324:21326",
 	)
 	flag.BoolVar(
 		&withusb,
 		"u",
 		true,
-		"Use USB devices. Can be disabled for testing environments. Example: trezord-go -e 21324 -u=false",
+		"Use USB devices. Can be disabled for testing environments. Example: cerberusd-go -e 21324 -u=false",
 	)
 	flag.BoolVar(
 		&verbose,
@@ -166,7 +166,7 @@ func main() {
 	flag.Parse()
 
 	if versionFlag {
-		fmt.Printf("trezord version %s (rev %s)", version, githash)
+		fmt.Printf("cerberusd version %s (rev %s)", version, githash)
 		return
 	}
 
@@ -236,9 +236,9 @@ func main() {
 }
 
 func printWelcomeInfo(stderrLogger *log.Logger, port int) {
-	stderrLogger.Printf("trezord v%s (rev %s) is starting on port %d", version, githash, port)
+	stderrLogger.Printf("cerberusd v%s (rev %s) is starting on port %d", version, githash, port)
 	if core.IsDebugBinary() {
-		stderrLogger.Print("!! DEBUG mode enabled! Please contact Trezor support in case you did not initiate this. !!")
+		stderrLogger.Print("!! DEBUG mode enabled! Please contact Cerberus support in case you did not initiate this. !!")
 	}
 }
 
