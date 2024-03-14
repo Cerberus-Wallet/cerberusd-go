@@ -5,4 +5,4 @@ services:
       context: './'
     image: "cerberus-bridge"
     ports:
-      - "127.0.0.1:21325:11325"
+      - "127.0.0.1:21425:11325"

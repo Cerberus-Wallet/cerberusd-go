@@ -66,7 +66,7 @@ func InitLibUSB(mw *memorywriter.MemoryWriter, onlyLibusb, allowCancel, detach b
 	err := lowlevel.Init(&usb)
 	if err != nil {
 		return nil, fmt.Errorf(`error when initializing LibUSB.
-If you run cerberusd in an environment without USB (for example, docker or travis), use '-u=false'. For example, './cerberusd-go -e 21324 -u=false'.
+If you run cerberusd in an environment without USB (for example, docker or travis), use '-u=false'. For example, './cerberusd-go -e 21424 -u=false'.
 
 Original error: %v`, err)
 	}

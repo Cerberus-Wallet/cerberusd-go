@@ -126,24 +126,24 @@ func main() {
 	flag.IntVar(
 		&port,
 		"p",
-		21325,
-		"Use a different port for the HTTP server. Default is 21325.",
+		21425,
+		"Use a different port for the HTTP server. Default is 21425.",
 	)
 	flag.Var(
 		&ports,
 		"e",
-		"Use UDP port for emulator. Can be repeated for more ports. Example: cerberusd-go -e 21324 -e 21326",
+		"Use UDP port for emulator. Can be repeated for more ports. Example: cerberusd-go -e 21424 -e 21326",
 	)
 	flag.Var(
 		&touples,
 		"ed",
-		"Use UDP port for emulator with debug link. Can be repeated for more ports. Example: cerberusd-go -ed 21324:21326",
+		"Use UDP port for emulator with debug link. Can be repeated for more ports. Example: cerberusd-go -ed 21424:21326",
 	)
 	flag.BoolVar(
 		&withusb,
 		"u",
 		true,
-		"Use USB devices. Can be disabled for testing environments. Example: cerberusd-go -e 21324 -u=false",
+		"Use USB devices. Can be disabled for testing environments. Example: cerberusd-go -e 21424 -u=false",
 	)
 	flag.BoolVar(
 		&verbose,

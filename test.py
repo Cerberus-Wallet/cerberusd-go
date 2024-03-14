@@ -2,7 +2,7 @@ import requests
 
 
 def api_call(endpoint, data=None):
-    API = "http://127.0.0.1:21325"
+    API = "http://127.0.0.1:21425"
     headers = {"origin": "https://test.cerberus.uraanai.com"}
 
     r = requests.post(API + endpoint, headers=headers, data=data)

@@ -69,15 +69,15 @@ Cerberusd supports emulators for all Cerberus versions. However, you need to ena
 
 To enable emulator, run cerberusd with a parameter `-e` followed by port, for every emulator with an enabled port:
 
-`./cerberusd-go -e 21324`
+`./cerberusd-go -e 21424`
 
 You can disable all USB in order to run on some virtuaized environments, for example on CI:
 
-`./cerberusd-go -e 21324 -u=false`
+`./cerberusd-go -e 21424 -u=false`
 
 ## API documentation
 
-`cerberusd-go` starts a HTTP server on `http://localhost:21325`. AJAX calls are only enabled from cerberus.uraanai.com subdomains.
+`cerberusd-go` starts a HTTP server on `http://localhost:21425`. AJAX calls are only enabled from cerberus.uraanai.com subdomains.
 
 Server supports following API calls:
 
@@ -98,9 +98,9 @@ Cerberusd has support for debug link.
 
 To support an emulator with debug link, run
 
-`./cerberusd-go -ed 21324:21325 -u=false`
+`./cerberusd-go -ed 21424:21425 -u=false`
 
-this will detect emulator debug link on port 21325, with regular device on 21324.
+this will detect emulator debug link on port 21425, with regular device on 21424.
 
 To support WebUSB devices with debug link, no option is needed, just run cerberusd-go.
 
